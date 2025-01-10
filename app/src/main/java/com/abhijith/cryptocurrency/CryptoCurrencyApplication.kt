@@ -1,4 +1,4 @@
-package com.abhijith.cryptocurrency.ui.theme
+package com.abhijith.cryptocurrency
 
 import android.app.Application
 
