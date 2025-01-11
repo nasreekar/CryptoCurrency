@@ -5,7 +5,7 @@ import com.abhijith.domain.repository.ICurrencyRepository
 import kotlinx.coroutines.flow.Flow
 
 class GetAllCurrenciesUseCase(private val repository: ICurrencyRepository) {
-    suspend operator fun invoke(): Flow<List<Currency>> {
+    operator fun invoke(): Flow<List<Currency>> {
         return repository.getAllCurrencies()
     }
 }
