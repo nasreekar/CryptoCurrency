@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">CryptoCurrency</string>
+    <string name="insert_data">Insert Data</string>
+    <string name="delete_data">Delete Data</string>
+    <string name="show_crypto">Show Crypto Currencies</string>
+    <string name="show_fiat">Show Fiat Currencies</string>
+    <string name="show_all">Show All Currencies</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.abhijith.cryptocurrency.ui.screens
+package com.abhijith.cryptocurrency.ui.screens.demo
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
