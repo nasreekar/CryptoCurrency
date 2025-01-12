@@ -64,4 +64,8 @@ class DemoViewModel(
     fun showAllCurrencies() {
         _uiState.value = DemoUiState.NavigateToCurrencyList(CurrencyType.ALL.value)
     }
+
+    fun resetUiState() {
+        _uiState.value = DemoUiState.Initial
+    }
 }

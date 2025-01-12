@@ -28,6 +28,7 @@ fun DemoScreen(
         when (uiState) {
             is DemoUiState.NavigateToCurrencyList -> {
                 onNavigateToCurrencyList((uiState as DemoUiState.NavigateToCurrencyList).type)
+                viewModel.resetUiState()
             }
 
             is DemoUiState.Success -> {
