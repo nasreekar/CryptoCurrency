@@ -2,9 +2,6 @@ package com.abhijith.cryptocurrency.ui.screens.demo
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Snackbar
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -13,6 +10,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.abhijith.cryptocurrency.ui.components.CryptoSnackBar
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -74,16 +72,7 @@ fun DemoScreen(
 
 
     if (showSnackbar) {
-        Snackbar(
-            action = {
-                TextButton(onClick = { showSnackbar = false }) {
-                    Text("Dismiss")
-                }
-            }
-        ) {
-            Text(snackbarMessage)
-        }
-
+        CryptoSnackBar(message = snackbarMessage, onDismiss = { showSnackbar = false })
 //        LaunchedEffect(Unit) {
 //            kotlinx.coroutines.delay(5000)
 //            showSnackbar = false

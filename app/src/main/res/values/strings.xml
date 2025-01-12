@@ -11,4 +11,5 @@
     <string name="data_deletion_error">Failed to delete data: ${0}</string>
     <string name="data_insertion_success">Data inserted successfully</string>
     <string name="data_insertion_error">Failed to insert data: ${0}</string>
+    <string name="dismiss">Dismiss</string>
 </resources>
