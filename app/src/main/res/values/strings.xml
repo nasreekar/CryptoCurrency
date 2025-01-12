@@ -5,4 +5,10 @@
     <string name="show_crypto">Show Crypto Currencies</string>
     <string name="show_fiat">Show Fiat Currencies</string>
     <string name="show_all">Show All Currencies</string>
+    <string name="loading">Loading…</string>
+    <string name="loading_error">An error occurred while loading currencies</string>
+    <string name="data_deletion_success">Data deleted successfully</string>
+    <string name="data_deletion_error">Failed to delete data: ${0}</string>
+    <string name="data_insertion_success">Data inserted successfully</string>
+    <string name="data_insertion_error">Failed to insert data: ${0}</string>
 </resources>
