@@ -13,13 +13,12 @@ import org.koin.androidx.compose.koinViewModel
 fun CurrencyListScreen(
     type: CurrencyType, viewModel: CurrencyListViewModel = koinViewModel()
 ) {
+    val currencies by viewModel.currencies.collectAsStateWithLifecycle()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     LaunchedEffect(type) {
         viewModel.loadCurrencies(type)
     }
-
-    val currencies by viewModel.currencies.collectAsStateWithLifecycle()
-    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     when (uiState) {
         is CurrencyListState.Loading -> {
@@ -28,13 +27,11 @@ fun CurrencyListScreen(
 
         is CurrencyListState.Error -> {
             val errorMessage = (uiState as CurrencyListState.Error).message
-            Log.d("ABHIJITH", errorMessage)
+            Log.e("CurrencyListScreen", errorMessage)
         }
 
         else -> {
-            // CurrencyListContent(currencies = currencies)
-
-            Log.d("ABHIJITH", currencies.size.toString())
+            CurrencyListContent(currencies = currencies)
         }
     }
 }
