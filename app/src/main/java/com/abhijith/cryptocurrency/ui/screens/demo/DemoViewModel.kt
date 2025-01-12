@@ -22,7 +22,46 @@ class DemoViewModel(
     private val _dummyData = MutableStateFlow("")
     val dummyData = _dummyData.asStateFlow()
 
-    init {
+  /*  init {
+        viewModelScope.launch {
+            getAllCurrenciesUseCase().collect {
+                Log.d("DemoViewModel", "Currencies: $it")
+                _dummyData.value = "All currencies list: ${it.size}"
+            }
+        }
+    }*/
+
+    fun clearCurrencies() {
+        viewModelScope.launch {
+            clearCurrenciesUseCase()
+        }
+    }
+
+    fun insertData() {
+        viewModelScope.launch {
+            insertCurrenciesUseCase(emptyList())
+        }
+    }
+
+    fun showCryptoCurrencies() {
+        viewModelScope.launch {
+            getCryptoCurrencyUserCase().collect {
+                Log.d("DemoViewModel", "Crypto currencies: $it")
+                _dummyData.value = "Crypto currencies list: ${it.size}"
+            }
+        }
+    }
+
+    fun showFiatCurrencies() {
+        viewModelScope.launch {
+            getFiatCurrencyUserCase().collect {
+                Log.d("DemoViewModel", "Fiat currencies: $it")
+                _dummyData.value = "Fiat currencies list: ${it.size}"
+            }
+        }
+    }
+
+    fun showAllCurrencies() {
         viewModelScope.launch {
             getAllCurrenciesUseCase().collect {
                 Log.d("DemoViewModel", "Currencies: $it")

@@ -13,7 +13,7 @@ import androidx.compose.ui.unit.dp
 import com.abhijith.cryptocurrency.ui.theme.Purple40
 
 @Composable
-fun DemoScreenAction(title: String, onClickAction: () -> Unit) {
+fun DemoActionButton(title: String, onClickAction: () -> Unit) {
     Button(
         onClick = {
             onClickAction()
