@@ -4,7 +4,7 @@ import com.abhijith.domain.model.Currency
 import com.abhijith.domain.repository.ICurrencyRepository
 import kotlinx.coroutines.flow.Flow
 
-class GetFiatCurrencyUserCase(private val repository: ICurrencyRepository) {
+class GetFiatCurrencyUseCase(private val repository: ICurrencyRepository) {
     operator fun invoke(): Flow<List<Currency>> {
         return repository.getFiatCurrencies()
     }
