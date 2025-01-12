@@ -13,7 +13,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat.getString
 import com.abhijith.cryptocurrency.R
-import com.abhijith.cryptocurrency.ui.components.DemoActionButton
+import com.abhijith.cryptocurrency.ui.screens.demo.components.DemoActionButton
 
 @Composable
 fun DemoScreenActions(

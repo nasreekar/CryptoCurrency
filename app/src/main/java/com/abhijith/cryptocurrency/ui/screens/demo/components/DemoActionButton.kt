@@ -1,4 +1,4 @@
-package com.abhijith.cryptocurrency.ui.components
+package com.abhijith.cryptocurrency.ui.screens.demo.components
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
