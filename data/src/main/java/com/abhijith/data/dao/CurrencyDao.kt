@@ -12,12 +12,6 @@ interface CurrencyDao {
     @Query("SELECT * FROM currency_info")
     fun getAllCurrencies(): Flow<List<CurrencyEntity>>
 
-    @Query("SELECT * FROM currency_info WHERE code IS NOT NULL")
-    fun getFiatCurrencies(): Flow<List<CurrencyEntity>>
-
-    @Query("SELECT * FROM currency_info WHERE code IS NULL")
-    fun getCryptoCurrencies(): Flow<List<CurrencyEntity>>
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertCurrencies(currencies: List<CurrencyEntity>)
 

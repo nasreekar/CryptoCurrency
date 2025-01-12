@@ -3,9 +3,12 @@ package com.abhijith.data.di
 import androidx.room.Room
 import com.abhijith.data.database.CurrencyDatabase
 import com.abhijith.data.repository.ICurrencyRepositoryImpl
+import com.abhijith.data.utils.AndroidAssetLoader
+import com.abhijith.data.utils.AssetLoader
 import com.abhijith.domain.repository.ICurrencyRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
+import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 
 val dataModule = module {
@@ -21,5 +24,7 @@ val dataModule = module {
 
     single { get<CurrencyDatabase>().currencyDao() }
 
-    single<ICurrencyRepository> { ICurrencyRepositoryImpl(get(), get()) }
+    single<AssetLoader> { AndroidAssetLoader(androidContext()) }
+
+    single<ICurrencyRepository> { ICurrencyRepositoryImpl(get(), get(), get()) }
 }

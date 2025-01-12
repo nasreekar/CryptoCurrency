@@ -7,6 +7,6 @@ interface ICurrencyRepository {
     fun getAllCurrencies(): Flow<List<Currency>>
     fun getCryptoCurrencies(): Flow<List<Currency>>
     fun getFiatCurrencies(): Flow<List<Currency>>
-    suspend fun insertCurrencies(currencies: List<Currency>)
     suspend fun clearCurrencies()
+    suspend fun loadAndInsertCurrencies()
 }

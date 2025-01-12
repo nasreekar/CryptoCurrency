@@ -3,19 +3,15 @@ package com.abhijith.cryptocurrency.ui.screens.demo
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.abhijith.cryptocurrency.ui.screens.CurrencyType
-import com.abhijith.cryptocurrency.ui.utils.AssetLoader
-import com.abhijith.domain.model.Currency
 import com.abhijith.domain.usecase.ClearCurrenciesUseCase
-import com.abhijith.domain.usecase.InsertCurrenciesUseCase
+import com.abhijith.domain.usecase.LoadAndInsertAssetsUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import kotlinx.serialization.json.Json
 
 class DemoViewModel(
     private val clearCurrenciesUseCase: ClearCurrenciesUseCase,
-    private val insertCurrenciesUseCase: InsertCurrenciesUseCase,
-    private val assetLoader: AssetLoader
+    private val loadAndInsertAssetsUseCase: LoadAndInsertAssetsUseCase
 ) : ViewModel() {
     private val _uiState = MutableStateFlow<DemoUiState>(DemoUiState.Initial)
     val uiState = _uiState.asStateFlow()
@@ -36,16 +32,7 @@ class DemoViewModel(
         viewModelScope.launch {
             try {
                 _uiState.value = DemoUiState.Loading
-
-                val cryptoJson = assetLoader.loadJsonFromAssets("crypto.json")
-                val fiatJson = assetLoader.loadJsonFromAssets("fiat.json")
-
-                val cryptoCurrencies = Json.decodeFromString<List<Currency>>(cryptoJson)
-                val fiatCurrencies = Json.decodeFromString<List<Currency>>(fiatJson)
-
-                val allCurrencies = cryptoCurrencies + fiatCurrencies
-                insertCurrenciesUseCase(allCurrencies)
-
+                loadAndInsertAssetsUseCase()
                 _uiState.value = DemoUiState.Success("Data inserted successfully")
             } catch (e: Exception) {
                 _uiState.value = DemoUiState.Error("Failed to insert data: ${e.message}")
