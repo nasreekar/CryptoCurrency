@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Snackbar
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -12,13 +13,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.abhijith.domain.model.Currency
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun DemoScreen(
     viewModel: DemoViewModel = koinViewModel(),
-    onNavigateToCurrencyList: (List<Currency>) -> Unit
+    onNavigateToCurrencyList: (String) -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     var showSnackbar by remember { mutableStateOf(false) }
@@ -27,7 +27,7 @@ fun DemoScreen(
     LaunchedEffect(uiState) {
         when (uiState) {
             is DemoUiState.NavigateToCurrencyList -> {
-                onNavigateToCurrencyList((uiState as DemoUiState.NavigateToCurrencyList).currencies)
+                onNavigateToCurrencyList((uiState as DemoUiState.NavigateToCurrencyList).type)
             }
 
             is DemoUiState.Success -> {
@@ -40,6 +40,11 @@ fun DemoScreen(
                 snackbarMessage = (uiState as DemoUiState.Error).message
             }
 
+            is DemoUiState.Loading -> {
+                showSnackbar = true
+                snackbarMessage = "Loading..."
+            }
+
             else -> {}
         }
     }
@@ -48,15 +53,20 @@ fun DemoScreen(
     Column(modifier = Modifier.fillMaxSize()) {
 
         DemoScreenActions(
-            onClearDatabase = { // viewModel.clearCurrencies()
+            onClearDatabase = {
+                viewModel.clearCurrencies()
             },
-            onInsertData = { // viewModel.insertData()
+            onInsertData = {
+                viewModel.insertData()
             },
-            onShowCrypto = { // viewModel.showCryptoCurrencies()
+            onShowCrypto = {
+                viewModel.showCryptoCurrencies()
             },
-            onShowFiat = { // viewModel.showFiatCurrencies()
+            onShowFiat = {
+                viewModel.showFiatCurrencies()
             },
-            onShowAll = { // viewModel.showAllCurrencies()
+            onShowAll = {
+                viewModel.showAllCurrencies()
             }
         )
     }
@@ -64,9 +74,18 @@ fun DemoScreen(
 
     if (showSnackbar) {
         Snackbar(
-            // onDismissed = { showSnackbar = false }
+            action = {
+                TextButton(onClick = { showSnackbar = false }) {
+                    Text("Dismiss")
+                }
+            }
         ) {
             Text(snackbarMessage)
         }
+
+//        LaunchedEffect(Unit) {
+//            kotlinx.coroutines.delay(5000)
+//            showSnackbar = false
+//        }
     }
 }

@@ -7,5 +7,5 @@ sealed class DemoUiState {
     data object Loading : DemoUiState()
     data class Success(val message: String) : DemoUiState()
     data class Error(val message: String) : DemoUiState()
-    data class NavigateToCurrencyList(val currencies: List<Currency>) : DemoUiState()
+    data class NavigateToCurrencyList(val type: String) : DemoUiState()
 }

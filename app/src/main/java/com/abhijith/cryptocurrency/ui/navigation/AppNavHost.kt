@@ -7,6 +7,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.abhijith.cryptocurrency.ui.screens.CurrencyType
 import com.abhijith.cryptocurrency.ui.screens.currencyList.CurrencyListScreen
 import com.abhijith.cryptocurrency.ui.screens.demo.DemoScreen
 import com.abhijith.domain.model.Currency
@@ -20,22 +21,19 @@ fun AppNavHost() {
     NavHost(navController = navController, startDestination = Screen.Demo.route) {
         composable(Screen.Demo.route) {
             DemoScreen(
-                onNavigateToCurrencyList = { currencies ->
-                    val currenciesJson = Json.encodeToString(currencies)
-                    navController.navigate("${Screen.CurrencyList.route}/$currenciesJson")
+                onNavigateToCurrencyList = { type ->
+                    navController.navigate("${Screen.CurrencyList.route}/$type")
                 }
             )
         }
 
         composable(
-            route = "${Screen.CurrencyList.route}/{currencies}",
-            arguments = listOf(navArgument("currencies") { type = NavType.StringType })
+            route = "${Screen.CurrencyList.route}/{type}",
+            arguments = listOf(navArgument("type") { type = NavType.StringType })
         ) { backStackEntry ->
-            val currenciesJson = backStackEntry.arguments?.getString("currencies")
-            val currencies = remember(currenciesJson) {
-                Json.decodeFromString<List<Currency>>(currenciesJson ?: "[]")
-            }
-            CurrencyListScreen(currencies = currencies)
+            val type = backStackEntry.arguments?.getString("type").orEmpty()
+            val currencyType = CurrencyType.fromValue(type) // Convert string to enum
+            CurrencyListScreen(type = currencyType)
         }
     }
 }
