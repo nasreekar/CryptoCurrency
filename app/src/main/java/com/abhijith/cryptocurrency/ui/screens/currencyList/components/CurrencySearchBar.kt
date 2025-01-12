@@ -16,8 +16,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
+import com.abhijith.cryptocurrency.R
 
 @Composable
 fun CurrencySearchBar(
@@ -36,7 +38,7 @@ fun CurrencySearchBar(
             IconButton(onClick = { onSearchQueryChange(TextFieldValue("")) }) {
                 Icon(
                     imageVector = Icons.Default.ArrowBack,
-                    contentDescription = "Back",
+                    contentDescription = stringResource(id = R.string.back),
                     tint = Color.White
                 )
             }
@@ -54,7 +56,7 @@ fun CurrencySearchBar(
             IconButton(onClick = onClearSearch) {
                 Icon(
                     imageVector = Icons.Default.Close,
-                    contentDescription = "Clear",
+                    contentDescription = stringResource(id = R.string.clear),
                     tint = Color.White
                 )
             }

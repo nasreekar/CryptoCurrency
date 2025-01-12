@@ -9,9 +9,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.core.content.ContextCompat.getString
 import com.abhijith.cryptocurrency.R
 import com.abhijith.cryptocurrency.ui.screens.demo.components.DemoActionButton
 
@@ -31,41 +30,31 @@ fun DemoScreenActions(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         DemoActionButton(
-            title = getString(
-                LocalContext.current, R.string.insert_data
-            )
+            title = stringResource(id = R.string.insert_data)
         ) {
             onInsertData()
         }
         Spacer(modifier = Modifier.size(8.dp))
         DemoActionButton(
-            title = getString(
-                LocalContext.current, R.string.delete_data
-            )
+            title = stringResource(id = R.string.delete_data)
         ) {
             onClearDatabase()
         }
         Spacer(modifier = Modifier.size(8.dp))
         DemoActionButton(
-            title = getString(
-                LocalContext.current, R.string.show_crypto
-            )
+            title = stringResource(id = R.string.show_crypto)
         ) {
             onShowCrypto()
         }
         Spacer(modifier = Modifier.size(8.dp))
         DemoActionButton(
-            title = getString(
-                LocalContext.current, R.string.show_fiat
-            )
+            title = stringResource(id = R.string.show_fiat)
         ) {
             onShowFiat()
         }
         Spacer(modifier = Modifier.size(8.dp))
         DemoActionButton(
-            title = getString(
-                LocalContext.current, R.string.show_all
-            )
+            title = stringResource(id = R.string.show_all)
         ) {
             onShowAll()
         }

@@ -20,7 +20,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.abhijith.cryptocurrency.R
 import com.abhijith.cryptocurrency.ui.theme.Purple40
 import com.abhijith.domain.model.Currency
 
@@ -64,7 +66,7 @@ fun CurrencyListItem(currency: Currency) {
             )
             Icon(
                 imageVector = Icons.Default.ArrowForward,
-                contentDescription = "Arrow",
+                contentDescription = stringResource(id = R.string.arrow),
                 tint = Color.White
             )
         }

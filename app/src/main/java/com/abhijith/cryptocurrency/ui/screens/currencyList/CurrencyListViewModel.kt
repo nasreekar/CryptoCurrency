@@ -2,6 +2,7 @@ package com.abhijith.cryptocurrency.ui.screens.currencyList
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.abhijith.cryptocurrency.R
 import com.abhijith.cryptocurrency.ui.screens.CurrencyType
 import com.abhijith.domain.model.Currency
 import com.abhijith.domain.usecase.GetAllCurrenciesUseCase
@@ -39,9 +40,9 @@ class CurrencyListViewModel(
                 .onStart {
                     _uiState.value = CurrencyListState.Loading
                 }
-                .catch { exception ->
+                .catch { e ->
                     _uiState.value = CurrencyListState.Error(
-                        exception.message ?: "An error occurred while loading currencies"
+                        R.string.loading_currency_list_error, listOf(e.message.orEmpty())
                     )
                 }
                 .collect { result ->

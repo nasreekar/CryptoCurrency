@@ -2,6 +2,7 @@ package com.abhijith.cryptocurrency.ui.screens.demo
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.abhijith.cryptocurrency.R
 import com.abhijith.cryptocurrency.ui.screens.CurrencyType
 import com.abhijith.domain.usecase.ClearCurrenciesUseCase
 import com.abhijith.domain.usecase.LoadAndInsertAssetsUseCase
@@ -21,9 +22,10 @@ class DemoViewModel(
             try {
                 _uiState.value = DemoUiState.Loading
                 clearCurrenciesUseCase()
-                _uiState.value = DemoUiState.Success("Data deleted successfully")
+                _uiState.value = DemoUiState.Success(R.string.data_deletion_success)
             } catch (e: Exception) {
-                _uiState.value = DemoUiState.Error("Failed to delete data: ${e.message}")
+                _uiState.value =
+                    DemoUiState.Error(R.string.data_deletion_error, listOf(e.message.orEmpty()))
             }
         }
     }
@@ -33,9 +35,10 @@ class DemoViewModel(
             try {
                 _uiState.value = DemoUiState.Loading
                 loadAndInsertAssetsUseCase()
-                _uiState.value = DemoUiState.Success("Data inserted successfully")
+                _uiState.value = DemoUiState.Success(R.string.data_insertion_success)
             } catch (e: Exception) {
-                _uiState.value = DemoUiState.Error("Failed to insert data: ${e.message}")
+                _uiState.value =
+                    DemoUiState.Error(R.string.data_insertion_error, listOf(e.message.orEmpty()))
             }
         }
     }

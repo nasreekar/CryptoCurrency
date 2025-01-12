@@ -4,6 +4,10 @@ import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.abhijith.cryptocurrency.ui.components.LoadingScreen
 import com.abhijith.cryptocurrency.ui.screens.CurrencyType
@@ -16,6 +20,17 @@ fun CurrencyListScreen(
     val currencies by viewModel.currencies.collectAsStateWithLifecycle()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
+    var snackbarMessage by remember { mutableStateOf("") }
+
+    snackbarMessage = when (uiState) {
+        is CurrencyListState.Error -> stringResource(
+            (uiState as CurrencyListState.Error).messageResId,
+            *((uiState as CurrencyListState.Error).formatArgs.toTypedArray())
+        )
+
+        else -> ""
+    }
+
     LaunchedEffect(type) {
         viewModel.loadCurrencies(type)
     }
@@ -26,8 +41,7 @@ fun CurrencyListScreen(
         }
 
         is CurrencyListState.Error -> {
-            val errorMessage = (uiState as CurrencyListState.Error).message
-            Log.e("CurrencyListScreen", errorMessage)
+            Log.d("Abhijith - CurrencyListScreen", snackbarMessage)
         }
 
         else -> {

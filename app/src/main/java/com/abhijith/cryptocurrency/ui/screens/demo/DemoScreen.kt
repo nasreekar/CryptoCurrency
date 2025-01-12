@@ -9,7 +9,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.abhijith.cryptocurrency.R
 import com.abhijith.cryptocurrency.ui.components.CryptoSnackBar
 import org.koin.androidx.compose.koinViewModel
 
@@ -22,6 +24,17 @@ fun DemoScreen(
     var showSnackbar by remember { mutableStateOf(false) }
     var snackbarMessage by remember { mutableStateOf("") }
 
+    snackbarMessage = when (uiState) {
+        is DemoUiState.Success -> stringResource((uiState as DemoUiState.Success).messageResId)
+        is DemoUiState.Error -> stringResource(
+            (uiState as DemoUiState.Error).messageResId,
+            *((uiState as DemoUiState.Error).formatArgs.toTypedArray())
+        )
+
+        is DemoUiState.Loading -> stringResource(R.string.loading)
+        else -> ""
+    }
+
     LaunchedEffect(uiState) {
         when (uiState) {
             is DemoUiState.NavigateToCurrencyList -> {
@@ -29,28 +42,15 @@ fun DemoScreen(
                 viewModel.resetUiState()
             }
 
-            is DemoUiState.Success -> {
+            is DemoUiState.Success, is DemoUiState.Error, is DemoUiState.Loading -> {
                 showSnackbar = true
-                snackbarMessage = (uiState as DemoUiState.Success).message
-            }
-
-            is DemoUiState.Error -> {
-                showSnackbar = true
-                snackbarMessage = (uiState as DemoUiState.Error).message
-            }
-
-            is DemoUiState.Loading -> {
-                showSnackbar = true
-                snackbarMessage = "Loading..."
             }
 
             else -> {}
         }
     }
 
-
     Column(modifier = Modifier.fillMaxSize()) {
-
         DemoScreenActions(
             onClearDatabase = {
                 viewModel.clearCurrencies()
@@ -70,12 +70,7 @@ fun DemoScreen(
         )
     }
 
-
     if (showSnackbar) {
         CryptoSnackBar(message = snackbarMessage, onDismiss = { showSnackbar = false })
-//        LaunchedEffect(Unit) {
-//            kotlinx.coroutines.delay(5000)
-//            showSnackbar = false
-//        }
     }
 }
