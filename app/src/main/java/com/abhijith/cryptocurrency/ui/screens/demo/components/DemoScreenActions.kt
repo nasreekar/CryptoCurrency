@@ -29,7 +29,7 @@ fun DemoScreenActions(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         DemoActionButton(
-            title = stringResource(id = R.string.insert_data)
+            title = stringResource(id = R.string.insert_data),
         ) {
             onInsertData()
         }

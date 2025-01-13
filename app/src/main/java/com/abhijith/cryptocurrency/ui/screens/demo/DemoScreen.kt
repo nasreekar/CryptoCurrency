@@ -9,6 +9,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.abhijith.cryptocurrency.R
@@ -51,7 +52,7 @@ fun DemoScreen(
         }
     }
 
-    Column(modifier = Modifier.fillMaxSize()) {
+    Column(modifier = Modifier.fillMaxSize().testTag("demo_screen_container")) {
         DemoScreenActions(
             onClearDatabase = {
                 viewModel.clearCurrencies()

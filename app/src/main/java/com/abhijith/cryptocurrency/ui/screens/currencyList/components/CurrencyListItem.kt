@@ -30,7 +30,7 @@ import com.abhijith.domain.model.Currency
 fun CurrencyListItem(currency: Currency) {
     Row(
         modifier = Modifier
-            .testTag("CurrencyListItem")
+            .testTag("currency_list_item")
             .fillMaxWidth()
             .padding(8.dp),
         horizontalArrangement = Arrangement.SpaceBetween,

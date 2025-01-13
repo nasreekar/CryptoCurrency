@@ -93,4 +93,5 @@ dependencies {
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.androidx.core.testing)
     testImplementation(libs.koin.test)
+    androidTestImplementation(libs.espresso.intents)
 }

@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -20,7 +21,9 @@ import com.abhijith.cryptocurrency.R
 @Composable
 fun ErrorScreen(imgRes: Int, message: String) {
     Box(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .testTag("error_screen")
+            .fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
         Column(
