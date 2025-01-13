@@ -33,7 +33,8 @@ fun CurrencyListItem(currency: Currency) {
             .testTag("CurrencyListItem")
             .fillMaxWidth()
             .padding(8.dp),
-        horizontalArrangement = Arrangement.SpaceBetween
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
     ) {
         Row(
             modifier = Modifier.weight(1f),
@@ -57,18 +58,18 @@ fun CurrencyListItem(currency: Currency) {
                 color = Color.White,
                 modifier = Modifier.weight(1f)
             )
-        }
-        if (currency.code == null) {
-            Text(
-                text = currency.symbol,
-                color = Color.White,
-                modifier = Modifier.padding(end = 8.dp)
-            )
-            Icon(
-                imageVector = Icons.Default.ArrowForward,
-                contentDescription = stringResource(id = R.string.arrow),
-                tint = Color.White
-            )
+            if (currency.code == null) {
+                Text(
+                    text = currency.symbol,
+                    color = Color.White,
+                    modifier = Modifier.padding(end = 8.dp)
+                )
+                Icon(
+                    imageVector = Icons.Default.ArrowForward,
+                    contentDescription = stringResource(id = R.string.arrow),
+                    tint = Color.White
+                )
+            }
         }
     }
 }

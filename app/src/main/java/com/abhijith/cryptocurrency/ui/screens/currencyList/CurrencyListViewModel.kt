@@ -8,6 +8,7 @@ import com.abhijith.domain.model.Currency
 import com.abhijith.domain.usecase.GetAllCurrenciesUseCase
 import com.abhijith.domain.usecase.GetCryptoCurrencyUseCase
 import com.abhijith.domain.usecase.GetFiatCurrencyUseCase
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -39,6 +40,7 @@ class CurrencyListViewModel(
             useCase()
                 .onStart {
                     _uiState.value = CurrencyListState.Loading
+                    delay(1000) // just adding delay to show loading state
                 }
                 .catch { e ->
                     _uiState.value = CurrencyListState.Error(
@@ -46,8 +48,12 @@ class CurrencyListViewModel(
                     )
                 }
                 .collect { result ->
-                    _currencies.value = result
-                    _uiState.value = CurrencyListState.Success
+                    if (result.isEmpty()) {
+                        _uiState.value = CurrencyListState.Empty
+                    } else {
+                        _currencies.value = result
+                        _uiState.value = CurrencyListState.Success
+                    }
                 }
         }
     }

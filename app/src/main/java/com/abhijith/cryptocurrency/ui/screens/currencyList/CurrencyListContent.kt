@@ -10,7 +10,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
+import com.abhijith.cryptocurrency.R
+import com.abhijith.cryptocurrency.ui.components.NoResultsFound
 import com.abhijith.cryptocurrency.ui.screens.currencyList.components.CurrencyListItem
 import com.abhijith.cryptocurrency.ui.screens.currencyList.components.CurrencySearchBar
 import com.abhijith.cryptocurrency.ui.utils.matchesSearchCriteria
@@ -27,7 +30,14 @@ fun CurrencyListContent(currencies: List<Currency>) {
             onSearchQueryChange = { searchQuery = it },
             onClearSearch = { searchQuery = TextFieldValue("") }
         )
-        CurrencyData(currencies = filteredCurrencies)
+        if (filteredCurrencies.isEmpty()) {
+            NoResultsFound(
+                imgRes = android.R.drawable.ic_menu_search,
+                message = stringResource(id = R.string.no_results_found)
+            )
+        } else {
+            CurrencyData(currencies = filteredCurrencies)
+        }
     }
 }
 

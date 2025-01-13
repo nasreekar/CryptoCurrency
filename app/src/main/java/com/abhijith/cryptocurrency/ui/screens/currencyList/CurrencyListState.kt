@@ -7,4 +7,5 @@ sealed class CurrencyListState {
         val messageResId: Int,
         val formatArgs: List<String> = emptyList()
     ) : CurrencyListState()
+    data object Empty : CurrencyListState()
 }

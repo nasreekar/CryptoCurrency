@@ -9,7 +9,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.abhijith.cryptocurrency.R
 import com.abhijith.cryptocurrency.ui.components.LoadingScreen
+import com.abhijith.cryptocurrency.ui.components.NoResultsFound
 import com.abhijith.cryptocurrency.ui.screens.CurrencyType
 import org.koin.androidx.compose.koinViewModel
 
@@ -40,12 +42,23 @@ fun CurrencyListScreen(
             LoadingScreen()
         }
 
+        is CurrencyListState.Empty -> {
+            NoResultsFound(
+                android.R.drawable.stat_notify_error,
+                stringResource(id = R.string.no_records_in_db)
+            )
+        }
+
         is CurrencyListState.Error -> {
             Log.d("Abhijith - CurrencyListScreen", snackbarMessage)
         }
 
-        else -> {
+        is CurrencyListState.Success -> {
             CurrencyListContent(currencies = currencies)
+        }
+
+        else -> {
+            // Handle other states if necessary
         }
     }
 }
