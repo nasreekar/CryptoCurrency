@@ -80,7 +80,29 @@ Or run the tests directly from the `test` and `androidTest` directories.
 ## Observations About the Test
 - The problem statement emphasized reusability and Google’s recommended architecture. I followed this by implementing the app using **Jetpack Compose** and **MVVM architecture**.
 - Though multi-module architecture was not a requirement, I implemented it to demonstrate scalability and modularity best practices.
-- The use of **Koin** simplified dependency injection. It was new to me but I found it easier to set up and with significantly less boilerplate code compared to Hilt and Dagger, which I have used in the past.
+- The use of **Koin** simplified dependency injection. It was new to me, but I found it easier to set up and with significantly less boilerplate code compared to Hilt and Dagger, which I have used in the past.
+
+---
+
+## Screenshots
+
+<img src="https://github.com/user-attachments/assets/3f83f412-88b0-478b-9f56-484f8d1e883b" alt="Landing_Page" width="250" height="500"/>
+
+<img src="https://github.com/user-attachments/assets/80c73a52-8757-4b28-b1a2-e5dcf8ff0871" alt="Delete_Data" width="250" height="500"/>
+
+<img src="https://github.com/user-attachments/assets/0bffa1ea-7db8-45b0-80e6-fd2edd84271c" alt="Insert_Data" width="250" height="500"/>
+
+<img src="https://github.com/user-attachments/assets/a0f40dca-0fa1-4fc2-b3f5-f4be54c8eecb" alt="Empty_Data" width="250" height="500"/>
+
+<img src="https://github.com/user-attachments/assets/0bd67ee0-821f-48bd-8a11-1297be92d705" alt="Crypto_Data" width="250" height="500"/>
+
+<img src="https://github.com/user-attachments/assets/25728932-00dd-47a2-896c-d966c069354a" alt="Crypto_Search_Success" width="250" height="500"/>
+
+<img src="https://github.com/user-attachments/assets/dab2a66f-5d2a-45b6-a951-67bfab46f02e" alt="Crypto_Search_No_Results" width="250" height="500"/>
+
+<img src="https://github.com/user-attachments/assets/b3f315f3-723f-4eab-bb86-14e50343502a" alt="Fiat_Data" width="250" height="500"/>
+
+<img src="https://github.com/user-attachments/assets/ca190121-35a0-49cd-b88a-639d794714f3" alt="All_Data" width="250" height="500"/>
 
 ---
 
