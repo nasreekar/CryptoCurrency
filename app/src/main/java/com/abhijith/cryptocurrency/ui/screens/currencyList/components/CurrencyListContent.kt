@@ -1,4 +1,4 @@
-package com.abhijith.cryptocurrency.ui.screens.currencyList
+package com.abhijith.cryptocurrency.ui.screens.currencyList.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,9 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
 import com.abhijith.cryptocurrency.R
-import com.abhijith.cryptocurrency.ui.components.NoResultsFound
-import com.abhijith.cryptocurrency.ui.screens.currencyList.components.CurrencyListItem
-import com.abhijith.cryptocurrency.ui.screens.currencyList.components.CurrencySearchBar
+import com.abhijith.cryptocurrency.ui.components.ErrorScreen
 import com.abhijith.cryptocurrency.ui.utils.matchesSearchCriteria
 import com.abhijith.domain.model.Currency
 
@@ -31,7 +29,7 @@ fun CurrencyListContent(currencies: List<Currency>) {
             onClearSearch = { searchQuery = TextFieldValue("") }
         )
         if (filteredCurrencies.isEmpty()) {
-            NoResultsFound(
+            ErrorScreen(
                 imgRes = android.R.drawable.ic_menu_search,
                 message = stringResource(id = R.string.no_results_found)
             )

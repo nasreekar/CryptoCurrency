@@ -13,6 +13,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.abhijith.cryptocurrency.R
 import com.abhijith.cryptocurrency.ui.components.CryptoSnackBar
+import com.abhijith.cryptocurrency.ui.screens.demo.components.DemoScreenActions
 import org.koin.androidx.compose.koinViewModel
 
 @Composable

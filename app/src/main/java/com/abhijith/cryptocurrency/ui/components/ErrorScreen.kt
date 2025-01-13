@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 import com.abhijith.cryptocurrency.R
 
 @Composable
-fun NoResultsFound(imgRes: Int, message: String) {
+fun ErrorScreen(imgRes: Int, message: String) {
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
