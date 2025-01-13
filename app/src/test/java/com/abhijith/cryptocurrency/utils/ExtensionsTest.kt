@@ -1,4 +1,4 @@
-package com.abhijith.cryptocurrency
+package com.abhijith.cryptocurrency.utils
 
 import com.abhijith.cryptocurrency.ui.utils.matchesSearchCriteria
 import com.abhijith.domain.model.Currency
