@@ -18,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import com.abhijith.cryptocurrency.R
@@ -37,7 +38,10 @@ fun CurrencySearchBar(
         verticalAlignment = Alignment.CenterVertically
     ) {
         if (searchQuery.text.isNotEmpty()) {
-            IconButton(onClick = { onSearchQueryChange(TextFieldValue("")) }) {
+            IconButton(
+                onClick = { onSearchQueryChange(TextFieldValue("")) },
+                modifier = Modifier.testTag("back_button")
+            ) {
                 Icon(
                     imageVector = Icons.Default.ArrowBack,
                     contentDescription = stringResource(id = R.string.back),
@@ -49,13 +53,14 @@ fun CurrencySearchBar(
             value = searchQuery,
             onValueChange = onSearchQueryChange,
             modifier = Modifier
+                .testTag("search_text_field_$searchQuery")
                 .weight(1f)
                 .padding(horizontal = 8.dp)
                 .background(Color.LightGray, shape = MaterialTheme.shapes.small)
                 .padding(8.dp)
         )
         if (searchQuery.text.isNotEmpty()) {
-            IconButton(onClick = onClearSearch) {
+            IconButton(onClick = onClearSearch, modifier = Modifier.testTag("clear_button")) {
                 Icon(
                     imageVector = Icons.Default.Close,
                     contentDescription = stringResource(id = R.string.clear),

@@ -45,9 +45,11 @@ class DemoScreenTest {
             .onNodeWithTag("demo_screen_container")
             .assertIsDisplayed()
 
-        composeTestRule.onNodeWithText("Insert Data").assertIsDisplayed()
+        composeTestRule.onNodeWithText(composeTestRule.activity.getString(R.string.insert_data))
+            .assertIsDisplayed()
 
-        composeTestRule.onNodeWithText("Insert Data").performClick()
+        composeTestRule.onNodeWithText(composeTestRule.activity.getString(R.string.insert_data))
+            .performClick()
 
         composeTestRule
             .waitUntil(timeoutMillis = 2000) {
@@ -75,7 +77,8 @@ class DemoScreenTest {
             .onNodeWithTag("demo_screen_container")
             .assertIsDisplayed()
 
-        composeTestRule.onNodeWithText("Delete Data").assertIsDisplayed().performClick()
+        composeTestRule.onNodeWithText(composeTestRule.activity.getString(R.string.delete_data))
+            .assertIsDisplayed().performClick()
 
         composeTestRule
             .waitUntil(timeoutMillis = 2000) {
@@ -103,7 +106,8 @@ class DemoScreenTest {
             .onNodeWithTag("demo_screen_container")
             .assertIsDisplayed()
 
-        composeTestRule.onNodeWithText("Show Crypto Currencies").assertIsDisplayed().performClick()
+        composeTestRule.onNodeWithText(composeTestRule.activity.getString(R.string.show_crypto))
+            .assertIsDisplayed().performClick()
 
         composeTestRule.waitUntil(timeoutMillis = 5000) {
             composeTestRule
@@ -128,7 +132,8 @@ class DemoScreenTest {
             .onNodeWithTag("demo_screen_container")
             .assertIsDisplayed()
 
-        composeTestRule.onNodeWithText("Show Fiat Currencies").assertIsDisplayed().performClick()
+        composeTestRule.onNodeWithText(composeTestRule.activity.getString(R.string.show_fiat))
+            .assertIsDisplayed().performClick()
 
         composeTestRule.waitUntil(timeoutMillis = 5000) {
             composeTestRule
@@ -153,7 +158,8 @@ class DemoScreenTest {
             .onNodeWithTag("demo_screen_container")
             .assertIsDisplayed()
 
-        composeTestRule.onNodeWithText("Show All Currencies").assertIsDisplayed().performClick()
+        composeTestRule.onNodeWithText(composeTestRule.activity.getString(R.string.show_all))
+            .assertIsDisplayed().performClick()
 
         composeTestRule.waitUntil(timeoutMillis = 5000) {
             composeTestRule
