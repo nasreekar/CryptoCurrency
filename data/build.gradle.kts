@@ -57,6 +57,7 @@ dependencies {
     androidTestImplementation(libs.mockk.android)
     androidTestImplementation(libs.mockk.agent)
     testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation (libs.kotlin.test.junit)
 
     // Json Serialization
     implementation(libs.kotlinx.serialization.json)

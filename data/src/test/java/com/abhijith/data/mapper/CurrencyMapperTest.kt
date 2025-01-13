@@ -1,8 +1,6 @@
-package com.abhijith.data
+package com.abhijith.data.mapper
 
 import com.abhijith.data.entity.CurrencyEntity
-import com.abhijith.data.mapper.toDomain
-import com.abhijith.data.mapper.toEntity
 import com.abhijith.domain.model.Currency
 import org.junit.Assert.assertEquals
 import org.junit.Test

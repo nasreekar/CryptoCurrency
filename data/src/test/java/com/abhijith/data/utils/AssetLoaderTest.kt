@@ -1,9 +1,7 @@
-package com.abhijith.data
+package com.abhijith.data.utils
 
 import android.content.Context
 import android.content.res.AssetManager
-import com.abhijith.data.utils.AndroidAssetLoader
-import com.abhijith.data.utils.AssetLoader
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
