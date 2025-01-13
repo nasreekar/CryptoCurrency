@@ -12,7 +12,7 @@ import androidx.core.content.ContextCompat.getString
 import com.abhijith.cryptocurrency.R
 
 @Composable
-fun CryptoSnackBar(message: String,  onDismiss: () -> Unit ) {
+fun CryptoSnackBar(message: String, onDismiss: () -> Unit) {
     Snackbar(
         action = {
             TextButton(onClick = onDismiss) {

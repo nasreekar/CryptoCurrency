@@ -8,5 +8,6 @@ sealed class DemoUiState {
         val messageResId: Int,
         val formatArgs: List<String> = emptyList()
     ) : DemoUiState()
+
     data class NavigateToCurrencyList(val type: String) : DemoUiState()
 }

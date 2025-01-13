@@ -11,7 +11,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.abhijith.cryptocurrency.ui.navigation.AppNavHost
-import com.abhijith.cryptocurrency.ui.screens.demo.DemoScreen
 import com.abhijith.cryptocurrency.ui.theme.CryptoCurrencyTheme
 
 class MainActivity : ComponentActivity() {
