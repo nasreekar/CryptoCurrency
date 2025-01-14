@@ -33,14 +33,15 @@ Below are the details of the implementation and my approach.
 
 ---
 
+<!--
 ## Observations and Learnings
 
 ### Architectural Choices
 - **Dispatcher Handling**: Dispatchers are handled in the repository implementation (data layer) rather than in the use cases. This keeps the domain layer pure and focused solely on business logic, while the data layer manages data-fetching and processing details.
 - **Dependency Injection with Koin**:
-    - **`module {}`**: Used to define the dependencies that Koin will provide.
+    - **`module {}`**: Used to define the dependencies Koin will provide.
     - **`get()`**: Used to retrieve instances of dependencies.  
-    - **`factory {}`**: Creates a new object instance every time it is requested.
+    - **`factory {}`**: Creates a new object instance whenever requested.
     - **`single {}`**: Creates a single object instance that is reused whenever requested.
     - Example:
       ```kotlin
@@ -49,15 +50,17 @@ Below are the details of the implementation and my approach.
       Here, Koin is instructed to provide an instance of the repository and its implementation.
 
 ### AI Tools Used
-- Installed **GitHub Copilot** in Android Studio to explore its capabilities, especially for debugging test cases. It provided a reasonable amount suggestions during the process.
+- Installed **GitHub Copilot** in Android Studio to explore its capabilities, especially for auto-completion of new composables and comments. It provided a reasonable amount of suggestions during the process.
 
----
+-->
 
 ## Installation and Usage
 
+<!--
 ### Prerequisites
 - Android Studio Electric Eel or higher
 - Kotlin 1.8+
+-->
 
 ### Steps to Run the Project
 1. Clone the repository:
@@ -80,7 +83,7 @@ Or run the tests directly from the `test` and `androidTest` directories.
 ## Observations About the Test
 - The problem statement emphasized reusability and Google’s recommended architecture. I followed this by implementing the app using **Jetpack Compose** and **MVVM architecture**.
 - Though multi-module architecture was not a requirement, I implemented it to demonstrate scalability and modularity best practices.
-- The use of **Koin** simplified dependency injection. It was new to me, but I found it easier to set up and with significantly less boilerplate code compared to Hilt and Dagger, which I have used in the past.
+- The use of **Koin** simplified dependency injection. It was new to me, but I found it easier to set up and with significantly less boilerplate code than Hilt and Dagger, which I have used.
 
 ---
 
@@ -106,9 +109,22 @@ Or run the tests directly from the `test` and `androidTest` directories.
 
 ---
 
-## Future Improvements
+## Complete Folder Structure 
+Tool: [tree](https://formulae.brew.sh/formula/tree), command: tree -I 'build|.gradle|gradle' -P '*.kt|*.java|*.kts'
+
+![Screenshot 2025-01-15 at 12 16 19 am](https://github.com/user-attachments/assets/c5689fd1-31b3-4fdf-819b-e4a127a5bcd6)
+
+![Screenshot 2025-01-15 at 12 16 42 am](https://github.com/user-attachments/assets/b2d02b3a-f37e-46c4-a1c6-d295b11dc4d9)
+
+![Screenshot 2025-01-15 at 12 16 49 am](https://github.com/user-attachments/assets/d7bda97e-922e-47ed-b8ba-d1112bc402db)
+
 
 ---
+
+<!--
+## Future Improvements
+
+-->
 
 Thank you for reviewing this submission! If you have any questions or suggestions, please feel free to reach out.
 
