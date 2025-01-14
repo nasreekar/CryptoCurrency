@@ -6,7 +6,7 @@ import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
@@ -15,7 +15,7 @@ class ICurrencyRepositoryTest {
     private val repository: ICurrencyRepository = mockk()
 
     @Test
-    fun `verify getAllCurrencies should return list of all currencies`() = runBlocking {
+    fun `verify getAllCurrencies should return list of all currencies`() = runTest {
         val currencies = listOf(
             Currency("BTC", "Bitcoin", "BTC"),
             Currency("ETH", "Ethereum Classic", "ETH"),
@@ -30,7 +30,7 @@ class ICurrencyRepositoryTest {
     }
 
     @Test
-    fun `verify getCryptoCurrencies should return list of crypto currencies`() = runBlocking {
+    fun `verify getCryptoCurrencies should return list of crypto currencies`() = runTest {
         val currencies = listOf(
             Currency("BTC", "Bitcoin", "BTC"),
             Currency("ETH", "Ethereum Classic", "ETH"),
@@ -45,7 +45,7 @@ class ICurrencyRepositoryTest {
     }
 
     @Test
-    fun `verify getFiatCurrencies should return list of fiat currencies`() = runBlocking {
+    fun `verify getFiatCurrencies should return list of fiat currencies`() = runTest {
         val currencies = listOf(
             Currency("BTC", "Bitcoin", "BTC"),
             Currency("ETH", "Ethereum Classic", "ETH"),
@@ -60,7 +60,7 @@ class ICurrencyRepositoryTest {
     }
 
     @Test
-    fun `verify clearCurrencies should clear all currencies`() = runBlocking {
+    fun `verify clearCurrencies should clear all currencies`() = runTest {
         coEvery { repository.clearCurrencies() } returns Unit
 
         repository.clearCurrencies()
@@ -69,7 +69,7 @@ class ICurrencyRepositoryTest {
     }
 
     @Test
-    fun `verify loadAndInsertCurrencies should load and insert currencies`() = runBlocking {
+    fun `verify loadAndInsertCurrencies should load and insert currencies`() = runTest {
         coEvery { repository.loadAndInsertCurrencies() } returns Unit
 
         repository.loadAndInsertCurrencies()

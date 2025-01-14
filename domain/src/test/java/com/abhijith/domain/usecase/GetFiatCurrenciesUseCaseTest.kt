@@ -7,7 +7,7 @@ import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
@@ -17,7 +17,7 @@ class GetFiatCurrenciesUseCaseTest {
     private val getFiatCurrencyUseCase = GetFiatCurrencyUseCase(repository)
 
     @Test
-    fun `verify invoke should return list of currencies from repository`() = runBlocking {
+    fun `verify invoke should return list of currencies from repository`() = runTest {
         val currencies = listOf(
             Currency(
                 id = "BTC",
