@@ -6,6 +6,8 @@ import com.abhijith.cryptocurrency.R
 import com.abhijith.cryptocurrency.ui.screens.CurrencyType
 import com.abhijith.domain.usecase.ClearCurrenciesUseCase
 import com.abhijith.domain.usecase.LoadAndInsertAssetsUseCase
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -34,7 +36,13 @@ class DemoViewModel(
         viewModelScope.launch {
             try {
                 _uiState.value = DemoUiState.Loading
-                loadAndInsertAssetsUseCase()
+
+                // adding an artificial delay to show the loading state as the data insertion is very fast
+                coroutineScope {
+                    launch { delay(800) }
+                    launch { loadAndInsertAssetsUseCase() }
+                }
+
                 _uiState.value = DemoUiState.Success(R.string.data_insertion_success)
             } catch (e: Exception) {
                 _uiState.value =
