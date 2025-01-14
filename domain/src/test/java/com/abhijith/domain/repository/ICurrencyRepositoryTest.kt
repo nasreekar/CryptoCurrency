@@ -15,7 +15,7 @@ class ICurrencyRepositoryTest {
     private val repository: ICurrencyRepository = mockk()
 
     @Test
-    fun `getAllCurrencies should return list of all currencies`() = runBlocking {
+    fun `verify getAllCurrencies should return list of all currencies`() = runBlocking {
         val currencies = listOf(
             Currency("BTC", "Bitcoin", "BTC"),
             Currency("ETH", "Ethereum Classic", "ETH"),
@@ -30,7 +30,7 @@ class ICurrencyRepositoryTest {
     }
 
     @Test
-    fun `getCryptoCurrencies should return list of crypto currencies`() = runBlocking {
+    fun `verify getCryptoCurrencies should return list of crypto currencies`() = runBlocking {
         val currencies = listOf(
             Currency("BTC", "Bitcoin", "BTC"),
             Currency("ETH", "Ethereum Classic", "ETH"),
@@ -45,7 +45,7 @@ class ICurrencyRepositoryTest {
     }
 
     @Test
-    fun `getFiatCurrencies should return list of fiat currencies`() = runBlocking {
+    fun `verify getFiatCurrencies should return list of fiat currencies`() = runBlocking {
         val currencies = listOf(
             Currency("BTC", "Bitcoin", "BTC"),
             Currency("ETH", "Ethereum Classic", "ETH"),
@@ -60,7 +60,7 @@ class ICurrencyRepositoryTest {
     }
 
     @Test
-    fun `clearCurrencies should clear all currencies`() = runBlocking {
+    fun `verify clearCurrencies should clear all currencies`() = runBlocking {
         coEvery { repository.clearCurrencies() } returns Unit
 
         repository.clearCurrencies()
@@ -69,7 +69,7 @@ class ICurrencyRepositoryTest {
     }
 
     @Test
-    fun `loadAndInsertCurrencies should load and insert currencies`() = runBlocking {
+    fun `verify loadAndInsertCurrencies should load and insert currencies`() = runBlocking {
         coEvery { repository.loadAndInsertCurrencies() } returns Unit
 
         repository.loadAndInsertCurrencies()

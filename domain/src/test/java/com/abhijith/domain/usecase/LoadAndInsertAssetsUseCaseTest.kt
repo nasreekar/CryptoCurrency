@@ -13,7 +13,7 @@ class LoadAndInsertAssetsUseCaseTest {
     private val loadAndInsertAssetsUseCase = LoadAndInsertAssetsUseCase(repository)
 
     @Test
-    fun `invoke should call loadAndInsertCurrencies on repository`() = runBlocking {
+    fun `verify invoke should call loadAndInsertCurrencies on repository`() = runBlocking {
         coEvery { repository.loadAndInsertCurrencies() } returns Unit
         loadAndInsertAssetsUseCase.invoke()
         coVerify(exactly = 1) { repository.loadAndInsertCurrencies() }

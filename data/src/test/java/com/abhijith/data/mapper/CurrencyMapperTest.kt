@@ -8,7 +8,7 @@ import org.junit.Test
 class CurrencyMapperTest {
 
     @Test
-    fun `test FiatCurrencyEntity toDomain mapping`() {
+    fun `verify FiatCurrencyEntity toDomain mapping`() {
         val currencyEntity = CurrencyEntity(
             id = "SGD",
             name = "Singapore Dollar",
@@ -25,7 +25,7 @@ class CurrencyMapperTest {
     }
 
     @Test
-    fun `test FiatCurrency toEntity mapping`() {
+    fun `verify FiatCurrency toEntity mapping`() {
         val currency = Currency(
             id = "SGD",
             name = "Singapore Dollar",
@@ -58,7 +58,7 @@ class CurrencyMapperTest {
     }
 
     @Test
-    fun `test CryptoCurrency toEntity mapping`() {
+    fun `verify CryptoCurrency toEntity mapping`() {
         val currency = Currency(
             id = "BTC",
             name = "Bitcoin",

@@ -32,7 +32,7 @@ class DemoScreenTest {
     }
 
     @Test
-    fun app_launches_and_click_on_insert_data_to_show_snackbar() {
+    fun testClickOnInsertDataToShowSnackBar() {
         composeTestRule.waitForIdle()
 
         composeTestRule.waitUntil(timeoutMillis = 5000) {
@@ -66,7 +66,7 @@ class DemoScreenTest {
     }
 
     @Test
-    fun click_on_delete_data_to_show_snackbar() {
+    fun testClickOnDeleteDataToShowSnackBar() {
         composeTestRule.waitUntil(timeoutMillis = 5000) {
             composeTestRule
                 .onAllNodesWithTag("demo_screen_container")
@@ -95,7 +95,7 @@ class DemoScreenTest {
     }
 
     @Test
-    fun click_on_show_crypto_currencies_to_navigate_with_crypto_key() {
+    fun testClickOnShowCryptoToNavigateToNextScreenWithCryptoKey() {
         composeTestRule.waitUntil(timeoutMillis = 5000) {
             composeTestRule
                 .onAllNodesWithTag("demo_screen_container")
@@ -121,7 +121,7 @@ class DemoScreenTest {
     }
 
     @Test
-    fun click_on_show_fiat_currencies_to_navigate_with_fiat_key() {
+    fun testClickOnShowFiatToNavigateToNextScreenWithFiatKey() {
         composeTestRule.waitUntil(timeoutMillis = 5000) {
             composeTestRule
                 .onAllNodesWithTag("demo_screen_container")
@@ -147,7 +147,7 @@ class DemoScreenTest {
     }
 
     @Test
-    fun click_on_show_all_currencies_to_navigate_with_all_key() {
+    fun testClickOnShowAllToNavigateToNextScreenWithAllKey() {
         composeTestRule.waitUntil(timeoutMillis = 5000) {
             composeTestRule
                 .onAllNodesWithTag("demo_screen_container")

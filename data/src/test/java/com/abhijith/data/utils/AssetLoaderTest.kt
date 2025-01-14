@@ -16,7 +16,7 @@ class AssetLoaderTest {
     private val assetLoader: AssetLoader = AndroidAssetLoader(context)
 
     @Test
-    fun `test loadJsonFromAssets returns correct string`() {
+    fun `verify loadJsonFromAssets returns correct string`() {
         val fileName = "test.json"
         val jsonContent =
             """[{"id": "BTC","name": "Bitcoin","symbol": "BTC"},{"id": "ETH","name": "Ethereum","symbol": "ETH"}]"""

@@ -17,7 +17,7 @@ class GetFiatCurrenciesUseCaseTest {
     private val getFiatCurrencyUseCase = GetFiatCurrencyUseCase(repository)
 
     @Test
-    fun `invoke should return list of currencies from repository`() = runBlocking {
+    fun `verify invoke should return list of currencies from repository`() = runBlocking {
         val currencies = listOf(
             Currency(
                 id = "BTC",

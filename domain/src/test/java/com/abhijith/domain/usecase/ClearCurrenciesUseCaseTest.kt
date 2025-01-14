@@ -13,7 +13,7 @@ class ClearCurrenciesUseCaseTest {
     private val clearCurrenciesUseCase = ClearCurrenciesUseCase(repository)
 
     @Test
-    fun `invoke should call clearCurrencies on repository`() = runBlocking {
+    fun `verify invoke should call clearCurrencies on repository`() = runBlocking {
         coEvery { repository.clearCurrencies() } returns Unit
         clearCurrenciesUseCase.invoke()
         coVerify(exactly = 1) { repository.clearCurrencies() }

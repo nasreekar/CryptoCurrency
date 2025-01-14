@@ -51,7 +51,7 @@ class DataModuleTest : KoinTest {
     }
 
     @Test
-    fun checkAllDependencies() {
+    fun `verify all dependencies are loaded`() {
         val database: CurrencyDatabase = get()
         val dao: CurrencyDao = get()
         val assetLoader: AssetLoader = get()

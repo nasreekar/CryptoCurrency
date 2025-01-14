@@ -17,7 +17,7 @@ class ExtensionsTest {
     )
 
     @Test
-    fun `test name starts with search term - foo`() {
+    fun `verify name starts with search term - foo`() {
         val query = "foo"
         val result = currencies.matchesSearchCriteria(query)
         val expected = listOf(
@@ -27,7 +27,7 @@ class ExtensionsTest {
     }
 
     @Test
-    fun `test name starts with search term - Ethereum`() {
+    fun `verify name starts with search term - Ethereum`() {
         val query = "Ethereum"
         val result = currencies.matchesSearchCriteria(query)
         val expected = listOf(
@@ -38,7 +38,7 @@ class ExtensionsTest {
     }
 
     @Test
-    fun `test name contains search term with space prefix - Classic`() {
+    fun `verify name contains search term with space prefix - Classic`() {
         val query = "Classic"
         val result = currencies.matchesSearchCriteria(query)
         val expected = listOf(
@@ -48,7 +48,7 @@ class ExtensionsTest {
     }
 
     @Test
-    fun `test symbol starts with search term - ET`() {
+    fun `verify symbol starts with search term - ET`() {
         val query = "ET"
         val result = currencies.matchesSearchCriteria(query)
         val expected = listOf(

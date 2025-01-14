@@ -55,7 +55,7 @@ class DemoViewModelTest {
     }
 
     @Test
-    fun `clearCurrencies sets Success state on success`() = runTest {
+    fun `verify clearCurrencies sets Success state on success`() = runTest {
         coEvery { clearCurrenciesUseCase() } returns Unit
 
         viewModel.clearCurrencies()
@@ -67,7 +67,7 @@ class DemoViewModelTest {
     }
 
     @Test
-    fun `clearCurrencies sets Error state on failure`() = runTest {
+    fun `verify clearCurrencies sets Error state on failure`() = runTest {
         val errorMessage = "Error"
         coEvery { clearCurrenciesUseCase() } throws Exception(errorMessage)
 
@@ -83,7 +83,7 @@ class DemoViewModelTest {
     }
 
     @Test
-    fun `insertData sets Success state on success`() = runTest {
+    fun `verify insertData sets Success state on success`() = runTest {
         coEvery { loadAndInsertAssetsUseCase() } returns Unit
 
         viewModel.insertData()
@@ -95,7 +95,7 @@ class DemoViewModelTest {
     }
 
     @Test
-    fun `insertData sets Error state on failure`() = runTest {
+    fun `verify insertData sets Error state on failure`() = runTest {
         val errorMessage = "Error"
         coEvery { loadAndInsertAssetsUseCase() } throws Exception(errorMessage)
 
@@ -111,7 +111,7 @@ class DemoViewModelTest {
     }
 
     @Test
-    fun `showCryptoCurrencies sets NavigateToCurrencyList state`() {
+    fun `verify showCryptoCurrencies sets NavigateToCurrencyList state`() {
         viewModel.showCryptoCurrencies()
 
         assertEquals(
@@ -121,7 +121,7 @@ class DemoViewModelTest {
     }
 
     @Test
-    fun `showFiatCurrencies sets NavigateToCurrencyList state`() {
+    fun `verify showFiatCurrencies sets NavigateToCurrencyList state`() {
         viewModel.showFiatCurrencies()
 
         assertEquals(
@@ -131,7 +131,7 @@ class DemoViewModelTest {
     }
 
     @Test
-    fun `showAllCurrencies sets NavigateToCurrencyList state`() {
+    fun `verify showAllCurrencies sets NavigateToCurrencyList state`() {
         viewModel.showAllCurrencies()
 
         assertEquals(
@@ -141,7 +141,7 @@ class DemoViewModelTest {
     }
 
     @Test
-    fun `resetUiState sets Initial state`() {
+    fun `verify resetUiState sets Initial state`() {
         viewModel.resetUiState()
 
         assertEquals(DemoUiState.Initial, viewModel.uiState.value)
