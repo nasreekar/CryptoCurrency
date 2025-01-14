@@ -18,7 +18,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import com.abhijith.cryptocurrency.R
@@ -53,7 +52,7 @@ fun CurrencySearchBar(
             value = searchQuery,
             onValueChange = onSearchQueryChange,
             modifier = Modifier
-                .testTag("search_text_field_$searchQuery")
+                .testTag("search_text_field")
                 .weight(1f)
                 .padding(horizontal = 8.dp)
                 .background(Color.LightGray, shape = MaterialTheme.shapes.small)

@@ -5,6 +5,8 @@ import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performTextInput
 import androidx.test.espresso.intent.Intents
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.abhijith.cryptocurrency.ui.components.ErrorScreen
@@ -21,6 +23,20 @@ import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 class CurrencyListScreenTest {
+
+    private val testCryptoCurrencies = listOf(
+        Currency(id = "ETH", name = "Ethereum", symbol = "ETH"),
+        Currency(id = "BTC", name = "Bitcoin", symbol = "BTC"),
+        Currency(id = "ETC", name = "Ethereum Classic", symbol = "ETC"),
+        Currency(id = "ETN", name = "ETN Coin", symbol = "ETN")
+    )
+
+    private val testFiatCurrencies = listOf(
+        Currency(id = "SGD", name = "Singapore Dollar", symbol = "$", code = "SGD"),
+        Currency(id = "USD", name = "United States Dollar", symbol = "$", code = "USD"),
+        Currency(id = "INR", name = "Indian Rupee", symbol = "₹", code = "INR"),
+        Currency(id = "GBP", name = "British Pound", symbol = "£", code = "GBP")
+    )
 
     @get:Rule
     val composeTestRule = createComposeRule()
@@ -59,6 +75,7 @@ class CurrencyListScreenTest {
                 type = CurrencyType.CRYPTO
             )
             uiState = CurrencyListState.Empty
+
             ErrorScreen(
                 imgRes = android.R.drawable.ic_menu_search,
                 message = stringResource(id = R.string.no_records_in_db)
@@ -103,19 +120,13 @@ class CurrencyListScreenTest {
 
     @Test
     fun testSuccessState() {
-        val testCurrencies = listOf(
-            Currency(id = "ETH", name = "Ethereum", symbol = "ETH"),
-            Currency(id = "ETC", name = "Ethereum Classic", symbol = "ETC"),
-            Currency(id = "ETN", name = "ETN Coin", symbol = "ETN")
-        )
-
         composeTestRule.setContent {
             CurrencyListScreen(
                 type = CurrencyType.CRYPTO
             )
 
             uiState = CurrencyListState.Success
-            CurrencyListContent(currencies = testCurrencies)
+            CurrencyListContent(currencies = testCryptoCurrencies)
         }
 
         // Verify the list content is displayed
@@ -138,36 +149,157 @@ class CurrencyListScreenTest {
             .assertIsDisplayed()
     }
 
-    /* @Test
-     fun testSearchFunctionality() {
-         val testCurrencies = listOf(
-             Currency(id = "ETH", name = "Ethereum", symbol = "ETH"),
-             Currency(id = "BTC", name = "Bitcoin", symbol = "BTC"),
-             Currency(id = "ETC", name = "Ethereum Classic", symbol = "ETC"),
-             Currency(id = "ETN", name = "ETN Coin", symbol = "ETN")
-         )
+    @Test
+    fun testSearchFunctionalityWithCryptoCurrencyList() {
+        composeTestRule.setContent {
+            CurrencyListContent(currencies = testCryptoCurrencies)
+        }
 
-         composeTestRule.setContent {
-             CurrencyListScreen(type = CurrencyType.CRYPTO)
-             uiState = CurrencyListState.Success
-             CurrencyListContent(currencies = testCurrencies)
-             CurrencySearchBar(
-                 searchQuery = TextFieldValue(""),
-                 onSearchQueryChange = {},
-                 onClearSearch = {}
-             )
-         }
+        composeTestRule
+            .onNodeWithTag("currency_search_bar")
+            .assertExists()
+            .assertIsDisplayed()
 
-         composeTestRule
-             .onNodeWithTag("search_text_field")
-             .performTextInput("Bitcoin")
+        composeTestRule
+            .onNodeWithTag("currency_data")
+            .assertExists()
+            .assertIsDisplayed()
 
-         composeTestRule
-             .onNodeWithText("Bitcoin")
-             .assertIsDisplayed()
+        composeTestRule
+            .onNodeWithTag("search_text_field")
+            .performTextInput("Bitcoin")
 
-         composeTestRule
-             .onNodeWithText("Ethereum")
-             .assertDoesNotExist()
-     }*/
+        composeTestRule.waitForIdle()
+
+        composeTestRule
+            .onNodeWithTag("currency_list_item_BTC", useUnmergedTree = true)
+            .assertExists()
+            .assertIsDisplayed()
+    }
+
+    @Test
+    fun testSearchFunctionalityWithFiatCurrencyList() {
+        composeTestRule.setContent {
+            CurrencyListContent(currencies = testFiatCurrencies)
+        }
+
+        composeTestRule
+            .onNodeWithTag("currency_search_bar")
+            .assertExists()
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNodeWithTag("currency_data")
+            .assertExists()
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNodeWithTag("search_text_field")
+            .performTextInput("d")
+
+        composeTestRule.waitForIdle()
+
+        composeTestRule
+            .onNodeWithTag("currency_list_item_SGD", useUnmergedTree = true)
+            .assertExists()
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNodeWithTag("currency_list_item_USD", useUnmergedTree = true)
+            .assertExists()
+            .assertIsDisplayed()
+    }
+
+    @Test
+    fun testSearchFunctionalityWithAllCurrencyList() {
+        composeTestRule.setContent {
+            CurrencyListContent(currencies = testFiatCurrencies + testCryptoCurrencies)
+        }
+
+        composeTestRule
+            .onNodeWithTag("currency_search_bar")
+            .assertExists()
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNodeWithTag("currency_data")
+            .assertExists()
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNodeWithTag("search_text_field")
+            .performTextInput("b")
+
+        composeTestRule.waitForIdle()
+
+        composeTestRule
+            .onNodeWithTag("currency_list_item_BTC", useUnmergedTree = true)
+            .assertExists()
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNodeWithTag("currency_list_item_GBP", useUnmergedTree = true)
+            .assertExists()
+            .assertIsDisplayed()
+    }
+
+    @Test
+    fun testSearchFunctionalityWithNoResult() {
+        composeTestRule.setContent {
+            CurrencyListContent(currencies = testFiatCurrencies + testCryptoCurrencies)
+        }
+
+        composeTestRule
+            .onNodeWithTag("currency_search_bar")
+            .assertExists()
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNodeWithTag("currency_data")
+            .assertExists()
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNodeWithTag("search_text_field")
+            .performTextInput("foo")
+
+        composeTestRule.waitForIdle()
+
+        composeTestRule.onNodeWithTag("error_screen").assertIsDisplayed()
+
+        composeTestRule
+            .onNodeWithText("No Results Found!!!")
+            .assertIsDisplayed()
+    }
+
+    @Test
+    fun testSearchClearFunctionality() {
+        composeTestRule.setContent {
+            CurrencyListContent(currencies = testCryptoCurrencies)
+        }
+
+        composeTestRule
+            .onNodeWithTag("search_text_field")
+            .assertExists()
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNodeWithTag("search_text_field")
+            .performTextInput("Bitcoin")
+
+        composeTestRule.waitForIdle()
+
+        composeTestRule
+            .onNodeWithTag("clear_button")
+            .assertExists()
+            .assertIsDisplayed()
+            .performClick()
+
+        composeTestRule.waitForIdle()
+
+        composeTestRule
+            .onNodeWithTag("currency_data")
+            .assertExists()
+            .assertIsDisplayed()
+    }
 }

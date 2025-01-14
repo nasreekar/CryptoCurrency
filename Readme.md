@@ -1,7 +1,7 @@
 # Crypto.com Android Take-Home Test
 
 ## Overview
-This repository contains my implementation of the Crypto.com Android Take-Home Test. 
+This repository contains my implementation of the [Crypto.com](https://crypto.com/) Android Take-Home Test. 
 The task required creating a reusable `CurrencyListFragment` to display Crypto and Fiat currencies with various functionalities. 
 Below are the details of the implementation and my approach.
 
