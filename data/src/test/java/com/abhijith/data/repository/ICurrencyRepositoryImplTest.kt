@@ -14,12 +14,8 @@ import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.drop
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.flow.last
-import kotlinx.coroutines.flow.take
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.advanceUntilIdle
@@ -58,60 +54,57 @@ class ICurrencyRepositoryImplTest {
         scope.cancel()
     }
 
-   /* @Test
+    @Test
     fun `verify getAllCurrencies returns mapped currencies`() = scope.runTest {
-
         val daoFlow = dao.getAllCurrencies() as MutableStateFlow
         daoFlow.emit(allCurrencies)
+        every { dao.getAllCurrencies() } returns daoFlow
 
-        val job = launch {
-            repository.getAllCurrencies().collect { result ->
-                assertEquals(3, result.size)
-                assertEquals("BTC", result[0].id)
-                assertEquals("Ethereum Classic", result[1].name)
-                assertEquals("USD", result[2].code)
-
-            }
-        }
-
-        advanceUntilIdle()
-
-        job.cancel()
-    }
-
-    @Test
-    fun `verify getCryptoCurrencies returns only crypto currencies`() = scope.runTest {
-        val entities = listOf(
-            CurrencyEntity("BTC", "Bitcoin", "BTC"),
-            CurrencyEntity("USD", "US Dollar", "$", "USD"),
-            CurrencyEntity("ETH", "Ethereum Classic", "ETH")
-        )
-        coEvery { dao.getAllCurrencies() } returns flowOf(entities)
-
-        val result = repository.getCryptoCurrencies().first()
+        val result = repository.getAllCurrencies().first { it.isNotEmpty() }
 
         assertEquals(
             listOf(
                 Currency("BTC", "Bitcoin", "BTC"),
-                CurrencyEntity("ETH", "Ethereum Classic", "ETH")
-            ), result
+                Currency("ETH", "Ethereum Classic", "ETH"),
+                Currency("USD", "US Dollar", "$", "USD")
+            ),
+            result
         )
+
+        advanceUntilIdle()
+    }
+
+    @Test
+    fun `verify getCryptoCurrencies returns only crypto currencies`() = scope.runTest {
+        val daoFlow = dao.getAllCurrencies() as MutableStateFlow
+        daoFlow.emit(allCurrencies)
+        every { dao.getAllCurrencies() } returns daoFlow
+
+        val result = repository.getCryptoCurrencies().first { it.isNotEmpty() }
+
+        assertEquals(
+            listOf(
+                Currency("BTC", "Bitcoin", "BTC"),
+                Currency("ETH", "Ethereum Classic", "ETH")
+            ),
+            result
+        )
+
+        advanceUntilIdle()
     }
 
     @Test
     fun `verify getFiatCurrencies returns only fiat currencies`() = scope.runTest {
-        val entities = listOf(
-            CurrencyEntity("BTC", "Bitcoin", "BTC"),
-            CurrencyEntity("USD", "US Dollar", "$", "USD")
-        )
+        val daoFlow = dao.getAllCurrencies() as MutableStateFlow
+        daoFlow.emit(allCurrencies)
+        every { dao.getAllCurrencies() } returns daoFlow
 
-        coEvery { dao.getAllCurrencies() } returns flowOf(entities)
-        val result = repository.getFiatCurrencies()
-            .drop(1) // Skip the initial empty list emitted by stateIn
-            .first()
+        val result = repository.getFiatCurrencies().first { it.isNotEmpty() }
 
         assertEquals(listOf(Currency("USD", "US Dollar", "$", "USD")), result)
-    }*/
+
+        advanceUntilIdle()
+    }
 
     @Test
     fun `verify clearCurrencies clears the currencies`() = scope.runTest {
