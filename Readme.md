@@ -80,10 +80,37 @@ Or run the tests directly from the `test` and `androidTest` directories.
 
 ---
 
-## Observations About the Test
+## Observations/Future Improvements About the Test
 - The problem statement emphasized reusability and Google’s recommended architecture. I followed this by implementing the app using **Jetpack Compose** and **MVVM architecture**.
-- Though multi-module architecture was not a requirement, I implemented it to demonstrate scalability and modularity best practices.
+- Although multi-module architecture was not a requirement, I implemented it to demonstrate scalability and modularity best practices. Given the simplicity of the problem statement—displaying five buttons and handling actions—I opted for an app, data, and domain module structure. This setup maintains a clean separation of concerns, ensuring better testability and reusability. While this structure is sufficient for smaller projects, it can be further enhanced by adopting a feature-based module structure in larger applications. Feature modules offer benefits like faster build times, improved scalability, and pluggability, making the architecture adaptable to growing business needs.
 - The use of **Koin** simplified dependency injection. It was new to me, but I found it easier to set up and with significantly less boilerplate code than Hilt and Dagger, which I have used.
+- In the current project, the data module organizes files logically (e.g., DAO, entity, mapper, etc.) for a Room database as it is the only data source. In future, if we decide to introduce additional data sources like network API, it may become cumbersome. To improve scalability and maintainability, the data module can be restructured into two main sub-packages: persistentData and networkData. This structure clearly separates concerns, making it easier to understand and maintain. 
+For example:
+```
+data
+│
+├── persistentData
+│   ├── dao
+│   │   └── CurrencyDao.kt
+│   ├── database
+│   │   └── CurrencyDatabase.kt
+│   ├── entity
+│   │   └── CurrencyEntity.kt
+│   └── mapper
+│       └── CurrencyMapper.kt
+│
+├── networkData
+│   ├── api
+│   │   └── CurrencyApi.kt
+│   ├── dto
+│   │   └── CurrencyDto.kt
+│   └── mapper
+│       └── CurrencyNetworkMapper.kt
+│
+└── repository
+    └── CurrencyRepositoryImpl.kt
+```
+- To improve the usage of multiple use cases in ViewModel and prevent it from becoming cluttered, I used [interactor approach](https://github.com/nasreekar/CryptoCurrency/tree/feature/introduce-interactor-for-usecases). This approach groups all use cases into a single class, reducing the number of dependencies injected into the ViewModel making it cleaner and scalable (can simply add a use case to interactor without affecting the view model code)
 
 ---
 
@@ -112,19 +139,16 @@ Or run the tests directly from the `test` and `androidTest` directories.
 ## Complete Folder Structure 
 Tool: [tree](https://formulae.brew.sh/formula/tree), command: tree -I 'build|.gradle|gradle' -P '*.kt|*.java|*.kts'
 
-![Screenshot 2025-01-15 at 12 16 19 am](https://github.com/user-attachments/assets/c5689fd1-31b3-4fdf-819b-e4a127a5bcd6)
+![App_Module](https://github.com/user-attachments/assets/ae488f53-530d-4eaa-9fbe-7df8d52ad2d4)
 
-![Screenshot 2025-01-15 at 12 16 42 am](https://github.com/user-attachments/assets/b2d02b3a-f37e-46c4-a1c6-d295b11dc4d9)
 
-![Screenshot 2025-01-15 at 12 16 49 am](https://github.com/user-attachments/assets/d7bda97e-922e-47ed-b8ba-d1112bc402db)
+![Data_Module](https://github.com/user-attachments/assets/e6afbb3a-2169-475b-8286-cced308e99e5)
+
+
+![Domain_Module](https://github.com/user-attachments/assets/12989e7c-8552-4e16-934e-23691658f7bd)
 
 
 ---
-
-<!--
-## Future Improvements
-
--->
 
 Thank you for reviewing this submission! If you have any questions or suggestions, please feel free to reach out.
 
