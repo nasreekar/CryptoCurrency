@@ -9,7 +9,7 @@ import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
 import androidx.test.espresso.intent.Intents
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.abhijith.cryptocurrency.ui.components.ErrorScreen
+import com.abhijith.cryptocurrency.ui.common.ErrorScreen
 import com.abhijith.cryptocurrency.ui.screens.CurrencyType
 import com.abhijith.cryptocurrency.ui.screens.currencyList.CurrencyListScreen
 import com.abhijith.cryptocurrency.ui.screens.currencyList.CurrencyListState

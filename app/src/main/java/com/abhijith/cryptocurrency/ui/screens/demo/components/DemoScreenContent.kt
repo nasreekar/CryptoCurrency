@@ -14,15 +14,12 @@ import androidx.compose.ui.unit.dp
 import com.abhijith.cryptocurrency.R
 
 @Composable
-fun DemoScreenActions(
-    onClearDatabase: () -> Unit,
-    onInsertData: () -> Unit,
-    onShowCrypto: () -> Unit,
-    onShowFiat: () -> Unit,
-    onShowAll: () -> Unit
+fun DemoScreenContent(
+    actionHandler: DemoScreenActionHandler,
+    modifier: Modifier = Modifier
 ) {
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxHeight()
             .padding(16.dp),
         verticalArrangement = Arrangement.Center,
@@ -30,32 +27,27 @@ fun DemoScreenActions(
     ) {
         DemoActionButton(
             title = stringResource(id = R.string.insert_data),
-        ) {
-            onInsertData()
-        }
+            onClickAction = actionHandler::onInsertData
+        )
         Spacer(modifier = Modifier.size(8.dp))
         DemoActionButton(
-            title = stringResource(id = R.string.delete_data)
-        ) {
-            onClearDatabase()
-        }
+            title = stringResource(id = R.string.delete_data),
+            onClickAction = actionHandler::onClearDatabase
+        )
         Spacer(modifier = Modifier.size(8.dp))
         DemoActionButton(
-            title = stringResource(id = R.string.show_crypto)
-        ) {
-            onShowCrypto()
-        }
+            title = stringResource(id = R.string.show_crypto),
+            onClickAction = actionHandler::onShowCrypto
+        )
         Spacer(modifier = Modifier.size(8.dp))
         DemoActionButton(
-            title = stringResource(id = R.string.show_fiat)
-        ) {
-            onShowFiat()
-        }
+            title = stringResource(id = R.string.show_fiat),
+            onClickAction = actionHandler::onShowFiat
+        )
         Spacer(modifier = Modifier.size(8.dp))
         DemoActionButton(
-            title = stringResource(id = R.string.show_all)
-        ) {
-            onShowAll()
-        }
+            title = stringResource(id = R.string.show_all),
+            onClickAction = actionHandler::onShowAll
+        )
     }
 }

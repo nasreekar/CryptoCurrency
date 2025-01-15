@@ -2,8 +2,6 @@ package com.abhijith.cryptocurrency.ui.screens.currencyList.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -14,7 +12,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
 import com.abhijith.cryptocurrency.R
-import com.abhijith.cryptocurrency.ui.components.ErrorScreen
+import com.abhijith.cryptocurrency.ui.common.ErrorScreen
 import com.abhijith.cryptocurrency.ui.utils.matchesSearchCriteria
 import com.abhijith.domain.model.Currency
 
@@ -40,17 +38,6 @@ fun CurrencyListContent(currencies: List<Currency>) {
             )
         } else {
             CurrencyData(currencies = filteredCurrencies)
-        }
-    }
-}
-
-@Composable
-fun CurrencyData(currencies: List<Currency>) {
-    LazyColumn(modifier = Modifier
-        .testTag("currency_data")
-        .fillMaxWidth()) {
-        items(currencies.size) { index ->
-            CurrencyListItem(currency = currencies[index])
         }
     }
 }
