@@ -10,9 +10,9 @@ import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
-class ICurrencyRepositoryTest {
+class CurrencyRepositoryTest {
 
-    private val repository: ICurrencyRepository = mockk()
+    private val repository: CurrencyRepository = mockk()
 
     @Test
     fun `verify getAllCurrencies should return list of all currencies`() = runTest {

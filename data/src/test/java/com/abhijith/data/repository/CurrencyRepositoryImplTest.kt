@@ -4,7 +4,7 @@ import com.abhijith.data.dao.CurrencyDao
 import com.abhijith.data.entity.CurrencyEntity
 import com.abhijith.data.utils.AssetLoader
 import com.abhijith.domain.model.Currency
-import com.abhijith.domain.repository.ICurrencyRepository
+import com.abhijith.domain.repository.CurrencyRepository
 import io.mockk.Runs
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -27,7 +27,7 @@ import org.junit.Test
 import kotlin.test.assertFailsWith
 
 @OptIn(ExperimentalCoroutinesApi::class)
-class ICurrencyRepositoryImplTest {
+class CurrencyRepositoryImplTest {
 
     private val dao = mockk<CurrencyDao>(relaxed = true)
     private val assetLoader: AssetLoader = mockk()
@@ -40,13 +40,13 @@ class ICurrencyRepositoryImplTest {
         CurrencyEntity("USD", "US Dollar", "$", "USD")
     )
 
-    private lateinit var repository: ICurrencyRepository
+    private lateinit var repository: CurrencyRepository
 
     @Before
     fun setUp() {
         val daoFlow = MutableStateFlow<List<CurrencyEntity>>(emptyList())
         every { dao.getAllCurrencies() } returns daoFlow
-        repository = ICurrencyRepositoryImpl(dao, dispatcher, assetLoader)
+        repository = CurrencyRepositoryImpl(dao, dispatcher, assetLoader)
     }
 
     @After

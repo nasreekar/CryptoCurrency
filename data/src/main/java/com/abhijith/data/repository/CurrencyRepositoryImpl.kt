@@ -5,7 +5,7 @@ import com.abhijith.data.entity.CurrencyEntity
 import com.abhijith.data.mapper.toDomain
 import com.abhijith.data.utils.AssetLoader
 import com.abhijith.domain.model.Currency
-import com.abhijith.domain.repository.ICurrencyRepository
+import com.abhijith.domain.repository.CurrencyRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
@@ -18,11 +18,11 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
 
-class ICurrencyRepositoryImpl(
+class CurrencyRepositoryImpl(
     private val dao: CurrencyDao,
     private val dispatcher: CoroutineDispatcher,
     private val assetLoader: AssetLoader
-) : ICurrencyRepository {
+) : CurrencyRepository {
 
     private val _allCurrencies = dao.getAllCurrencies()
         .distinctUntilChanged()

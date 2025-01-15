@@ -2,10 +2,10 @@ package com.abhijith.data.di
 
 import androidx.room.Room
 import com.abhijith.data.database.CurrencyDatabase
-import com.abhijith.data.repository.ICurrencyRepositoryImpl
+import com.abhijith.data.repository.CurrencyRepositoryImpl
 import com.abhijith.data.utils.AndroidAssetLoader
 import com.abhijith.data.utils.AssetLoader
-import com.abhijith.domain.repository.ICurrencyRepository
+import com.abhijith.domain.repository.CurrencyRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import org.koin.android.ext.koin.androidContext
@@ -26,5 +26,5 @@ val dataModule = module {
 
     single<AssetLoader> { AndroidAssetLoader(androidContext()) }
 
-    single<ICurrencyRepository> { ICurrencyRepositoryImpl(get(), get(), get()) }
+    single<CurrencyRepository> { CurrencyRepositoryImpl(get(), get(), get()) }
 }

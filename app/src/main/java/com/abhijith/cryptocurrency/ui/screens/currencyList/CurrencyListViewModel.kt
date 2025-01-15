@@ -13,6 +13,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
@@ -37,26 +38,25 @@ class CurrencyListViewModel(
                 CurrencyType.ALL -> getAllCurrenciesUseCase::invoke
             }
 
-            try {
-                useCase()
-                    .onStart {
-                        _uiState.value = CurrencyListState.Loading
-                        delay(1000)
+            useCase()
+                .catch { e ->
+                    _uiState.value = CurrencyListState.Error(
+                        R.string.loading_currency_list_error,
+                        listOf(e.message.orEmpty())
+                    )
+                }
+                .onStart {
+                    _uiState.value = CurrencyListState.Loading
+                    delay(1000)
+                }
+                .collectLatest { result ->
+                    if (result.isEmpty()) {
+                        _uiState.value = CurrencyListState.Empty
+                    } else {
+                        _currencies.value = result
+                        _uiState.value = CurrencyListState.Success
                     }
-                    .collectLatest { result ->
-                        if (result.isEmpty()) {
-                            _uiState.value = CurrencyListState.Empty
-                        } else {
-                            _currencies.value = result
-                            _uiState.value = CurrencyListState.Success
-                        }
-                    }
-            } catch (e: Exception) {
-                _uiState.value = CurrencyListState.Error(
-                    R.string.loading_currency_list_error,
-                    listOf(e.message.orEmpty())
-                )
-            }
+                }
         }
     }
 }

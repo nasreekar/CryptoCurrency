@@ -5,7 +5,7 @@ import androidx.room.Room
 import com.abhijith.data.dao.CurrencyDao
 import com.abhijith.data.database.CurrencyDatabase
 import com.abhijith.data.utils.AssetLoader
-import com.abhijith.domain.repository.ICurrencyRepository
+import com.abhijith.domain.repository.CurrencyRepository
 import io.mockk.mockk
 import junit.framework.TestCase.assertNotNull
 import kotlinx.coroutines.CoroutineDispatcher
@@ -55,7 +55,7 @@ class DataModuleTest : KoinTest {
         val database: CurrencyDatabase = get()
         val dao: CurrencyDao = get()
         val assetLoader: AssetLoader = get()
-        val repository: ICurrencyRepository = get()
+        val repository: CurrencyRepository = get()
 
         assertNotNull(database)
         assertNotNull(dao)
