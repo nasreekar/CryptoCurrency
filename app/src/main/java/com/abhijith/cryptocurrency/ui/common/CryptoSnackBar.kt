@@ -1,4 +1,4 @@
-package com.abhijith.cryptocurrency.ui.components
+package com.abhijith.cryptocurrency.ui.common
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Snackbar

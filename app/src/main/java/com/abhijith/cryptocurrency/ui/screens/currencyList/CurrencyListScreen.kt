@@ -12,8 +12,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.abhijith.cryptocurrency.R
-import com.abhijith.cryptocurrency.ui.components.ErrorScreen
-import com.abhijith.cryptocurrency.ui.components.LoadingScreen
+import com.abhijith.cryptocurrency.ui.common.ErrorScreen
+import com.abhijith.cryptocurrency.ui.common.LoadingScreen
 import com.abhijith.cryptocurrency.ui.screens.CurrencyType
 import com.abhijith.cryptocurrency.ui.screens.currencyList.components.CurrencyListContent
 import org.koin.androidx.compose.koinViewModel

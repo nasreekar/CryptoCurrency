@@ -1,4 +1,4 @@
-package com.abhijith.cryptocurrency.ui.components
+package com.abhijith.cryptocurrency.ui.common
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box

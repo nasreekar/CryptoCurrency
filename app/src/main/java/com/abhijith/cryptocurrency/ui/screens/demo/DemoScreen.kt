@@ -13,8 +13,9 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.abhijith.cryptocurrency.R
-import com.abhijith.cryptocurrency.ui.components.CryptoSnackBar
-import com.abhijith.cryptocurrency.ui.screens.demo.components.DemoScreenActions
+import com.abhijith.cryptocurrency.ui.common.CryptoSnackBar
+import com.abhijith.cryptocurrency.ui.screens.demo.components.DemoScreenActionHandler
+import com.abhijith.cryptocurrency.ui.screens.demo.components.DemoScreenContent
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -52,22 +53,18 @@ fun DemoScreen(
         }
     }
 
-    Column(modifier = Modifier.fillMaxSize().testTag("demo_screen_container")) {
-        DemoScreenActions(
-            onClearDatabase = {
-                viewModel.clearCurrencies()
-            },
-            onInsertData = {
-                viewModel.insertData()
-            },
-            onShowCrypto = {
-                viewModel.showCryptoCurrencies()
-            },
-            onShowFiat = {
-                viewModel.showFiatCurrencies()
-            },
-            onShowAll = {
-                viewModel.showAllCurrencies()
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .testTag("demo_screen_container")
+    ) {
+        DemoScreenContent(
+            actionHandler = object : DemoScreenActionHandler {
+                override fun onClearDatabase() = viewModel.clearCurrencies()
+                override fun onInsertData() = viewModel.insertData()
+                override fun onShowCrypto() = viewModel.showCryptoCurrencies()
+                override fun onShowFiat() = viewModel.showFiatCurrencies()
+                override fun onShowAll() = viewModel.showAllCurrencies()
             }
         )
     }
