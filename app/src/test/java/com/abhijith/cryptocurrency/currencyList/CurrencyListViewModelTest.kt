@@ -14,6 +14,7 @@ import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.advanceUntilIdle
@@ -103,7 +104,9 @@ class CurrencyListViewModelTest {
     @Test
     fun `verify loadCurrencies sets Error state on failure`() = runTest {
         val errorMessage = "Error"
-        coEvery { getCryptoCurrencyUseCase() } throws Exception(errorMessage)
+        coEvery { getCryptoCurrencyUseCase() } returns flow {
+            throw Exception(errorMessage)
+        }
 
         viewModel.loadCurrencies(CurrencyType.CRYPTO)
 
