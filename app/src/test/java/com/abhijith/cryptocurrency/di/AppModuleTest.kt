@@ -2,11 +2,7 @@ package com.abhijith.cryptocurrency.di
 
 import com.abhijith.cryptocurrency.ui.screens.currencyList.CurrencyListViewModel
 import com.abhijith.cryptocurrency.ui.screens.demo.DemoViewModel
-import com.abhijith.domain.usecase.ClearCurrenciesUseCase
-import com.abhijith.domain.usecase.GetAllCurrenciesUseCase
-import com.abhijith.domain.usecase.GetCryptoCurrencyUseCase
-import com.abhijith.domain.usecase.GetFiatCurrencyUseCase
-import com.abhijith.domain.usecase.LoadAndInsertAssetsUseCase
+import com.abhijith.domain.interactor.CurrencyUseCaseInteractor
 import io.mockk.mockk
 import kotlinx.coroutines.test.StandardTestDispatcher
 import org.junit.After
@@ -26,12 +22,7 @@ class AppModuleTest : KoinTest {
     @Before
     fun setUp() {
         val testModule = module {
-
-            single { mockk<ClearCurrenciesUseCase>(relaxed = true) }
-            single { mockk<LoadAndInsertAssetsUseCase>(relaxed = true) }
-            single { mockk<GetCryptoCurrencyUseCase>(relaxed = true) }
-            single { mockk<GetFiatCurrencyUseCase>(relaxed = true) }
-            single { mockk<GetAllCurrenciesUseCase>(relaxed = true) }
+            single { mockk<CurrencyUseCaseInteractor>(relaxed = true) }
         }
 
         startKoin {

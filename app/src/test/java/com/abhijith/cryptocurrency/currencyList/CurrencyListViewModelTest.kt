@@ -5,17 +5,17 @@ import com.abhijith.cryptocurrency.R
 import com.abhijith.cryptocurrency.ui.screens.CurrencyType
 import com.abhijith.cryptocurrency.ui.screens.currencyList.CurrencyListState
 import com.abhijith.cryptocurrency.ui.screens.currencyList.CurrencyListViewModel
+import com.abhijith.domain.interactor.CurrencyUseCaseInteractor
 import com.abhijith.domain.model.Currency
-import com.abhijith.domain.usecase.GetAllCurrenciesUseCase
-import com.abhijith.domain.usecase.GetCryptoCurrencyUseCase
-import com.abhijith.domain.usecase.GetFiatCurrencyUseCase
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.StandardTestDispatcher
+import kotlinx.coroutines.test.advanceTimeBy
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
@@ -36,17 +36,13 @@ class CurrencyListViewModelTest {
 
     private val testDispatcher = StandardTestDispatcher()
     private lateinit var viewModel: CurrencyListViewModel
-    private val getCryptoCurrencyUseCase: GetCryptoCurrencyUseCase = mockk()
-    private val getFiatCurrencyUseCase: GetFiatCurrencyUseCase = mockk()
-    private val getAllCurrenciesUseCase: GetAllCurrenciesUseCase = mockk()
+    private val currencyUseCaseInteractor: CurrencyUseCaseInteractor = mockk()
 
     @Before
     fun setUp() {
         Dispatchers.setMain(testDispatcher)
         viewModel = CurrencyListViewModel(
-            getCryptoCurrencyUseCase,
-            getFiatCurrencyUseCase,
-            getAllCurrenciesUseCase
+            currencyUseCaseInteractor
         )
     }
 
@@ -57,7 +53,7 @@ class CurrencyListViewModelTest {
 
     @Test
     fun `verify loadCurrencies sets Loading state on loading`() = runTest {
-        coEvery { getCryptoCurrencyUseCase() } returns flowOf(emptyList())
+        coEvery { currencyUseCaseInteractor.getCryptoCurrencies() } returns flowOf(emptyList())
 
         viewModel.loadCurrencies(CurrencyType.CRYPTO)
 
@@ -66,7 +62,7 @@ class CurrencyListViewModelTest {
         advanceUntilIdle()
 
         assertEquals(CurrencyListState.Empty, viewModel.uiState.value)
-        coVerify { getCryptoCurrencyUseCase() }
+        coVerify { currencyUseCaseInteractor.getCryptoCurrencies() }
     }
 
     @Test
@@ -76,7 +72,7 @@ class CurrencyListViewModelTest {
                 Currency("BTC", "Bitcoin", "BTC"),
                 Currency("ETH", "Ethereum Classic", "ETH")
             )
-        coEvery { getCryptoCurrencyUseCase() } returns flowOf(currencies)
+        coEvery { currencyUseCaseInteractor.getCryptoCurrencies() } returns flowOf(currencies)
 
         viewModel.loadCurrencies(CurrencyType.CRYPTO)
 
@@ -84,12 +80,12 @@ class CurrencyListViewModelTest {
 
         assertEquals(CurrencyListState.Success, viewModel.uiState.value)
         assertEquals(currencies, viewModel.currencies.value)
-        coVerify { getCryptoCurrencyUseCase() }
+        coVerify { currencyUseCaseInteractor.getCryptoCurrencies() }
     }
 
     @Test
     fun `verify loadCurrencies sets Empty state when no currencies`() = runTest {
-        coEvery { getCryptoCurrencyUseCase() } returns flowOf(emptyList())
+        coEvery { currencyUseCaseInteractor.getCryptoCurrencies() } returns flowOf(emptyList())
 
         viewModel.loadCurrencies(CurrencyType.CRYPTO)
 
@@ -97,15 +93,19 @@ class CurrencyListViewModelTest {
 
         assertEquals(CurrencyListState.Empty, viewModel.uiState.value)
         assertTrue(viewModel.currencies.value.isEmpty())
-        coVerify { getCryptoCurrencyUseCase() }
+        coVerify { currencyUseCaseInteractor.getCryptoCurrencies() }
     }
 
     @Test
     fun `verify loadCurrencies sets Error state on failure`() = runTest {
         val errorMessage = "Error"
-        coEvery { getCryptoCurrencyUseCase() } throws Exception(errorMessage)
+        coEvery { currencyUseCaseInteractor.getCryptoCurrencies() } returns flow {
+            throw Exception(errorMessage)
+        }
 
         viewModel.loadCurrencies(CurrencyType.CRYPTO)
+
+        advanceTimeBy(1000)
 
         advanceUntilIdle()
 
@@ -113,6 +113,6 @@ class CurrencyListViewModelTest {
             CurrencyListState.Error(R.string.loading_currency_list_error, listOf(errorMessage)),
             viewModel.uiState.value
         )
-        coVerify { getCryptoCurrencyUseCase() }
+        coVerify { currencyUseCaseInteractor.getCryptoCurrencies() }
     }
 }

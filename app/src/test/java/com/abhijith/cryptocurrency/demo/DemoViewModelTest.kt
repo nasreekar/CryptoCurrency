@@ -5,8 +5,7 @@ import com.abhijith.cryptocurrency.R
 import com.abhijith.cryptocurrency.ui.screens.CurrencyType
 import com.abhijith.cryptocurrency.ui.screens.demo.DemoUiState
 import com.abhijith.cryptocurrency.ui.screens.demo.DemoViewModel
-import com.abhijith.domain.usecase.ClearCurrenciesUseCase
-import com.abhijith.domain.usecase.LoadAndInsertAssetsUseCase
+import com.abhijith.domain.interactor.CurrencyUseCaseInteractor
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
@@ -40,13 +39,12 @@ class DemoViewModelTest {
 
     private val testDispatcher = StandardTestDispatcher()
     private lateinit var viewModel: DemoViewModel
-    private val clearCurrenciesUseCase: ClearCurrenciesUseCase = mockk()
-    private val loadAndInsertAssetsUseCase: LoadAndInsertAssetsUseCase = mockk()
+    private val useCaseInteractor: CurrencyUseCaseInteractor = mockk()
 
     @Before
     fun setUp() {
         Dispatchers.setMain(testDispatcher)
-        viewModel = DemoViewModel(clearCurrenciesUseCase, loadAndInsertAssetsUseCase)
+        viewModel = DemoViewModel(useCaseInteractor)
     }
 
     @After
@@ -56,20 +54,20 @@ class DemoViewModelTest {
 
     @Test
     fun `verify clearCurrencies sets Success state on success`() = runTest {
-        coEvery { clearCurrenciesUseCase() } returns Unit
+        coEvery { useCaseInteractor.clearCurrencies() } returns Unit
 
         viewModel.clearCurrencies()
 
         advanceUntilIdle()
 
         assertEquals(DemoUiState.Success(R.string.data_deletion_success), viewModel.uiState.value)
-        coVerify { clearCurrenciesUseCase() }
+        coVerify { useCaseInteractor.clearCurrencies() }
     }
 
     @Test
     fun `verify clearCurrencies sets Error state on failure`() = runTest {
         val errorMessage = "Error"
-        coEvery { clearCurrenciesUseCase() } throws Exception(errorMessage)
+        coEvery { useCaseInteractor.clearCurrencies() } throws Exception(errorMessage)
 
         viewModel.clearCurrencies()
 
@@ -79,25 +77,25 @@ class DemoViewModelTest {
             DemoUiState.Error(R.string.data_deletion_error, listOf(errorMessage)),
             viewModel.uiState.value
         )
-        coVerify { clearCurrenciesUseCase() }
+        coVerify { useCaseInteractor.clearCurrencies() }
     }
 
     @Test
     fun `verify insertData sets Success state on success`() = runTest {
-        coEvery { loadAndInsertAssetsUseCase() } returns Unit
+        coEvery { useCaseInteractor.loadAndInsertAssets() } returns Unit
 
         viewModel.insertData()
 
         advanceUntilIdle()
 
         assertEquals(DemoUiState.Success(R.string.data_insertion_success), viewModel.uiState.value)
-        coVerify { loadAndInsertAssetsUseCase() }
+        coVerify { useCaseInteractor.loadAndInsertAssets() }
     }
 
     @Test
     fun `verify insertData sets Error state on failure`() = runTest {
         val errorMessage = "Error"
-        coEvery { loadAndInsertAssetsUseCase() } throws Exception(errorMessage)
+        coEvery { useCaseInteractor.loadAndInsertAssets() } throws Exception(errorMessage)
 
         viewModel.insertData()
 
@@ -107,7 +105,7 @@ class DemoViewModelTest {
             DemoUiState.Error(R.string.data_insertion_error, listOf(errorMessage)),
             viewModel.uiState.value
         )
-        coVerify { loadAndInsertAssetsUseCase() }
+        coVerify { useCaseInteractor.loadAndInsertAssets() }
     }
 
     @Test
